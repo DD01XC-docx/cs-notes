@@ -1,0 +1,25 @@
+# 🔐 Authentication & Security Protocols Cheat Sheet
+
+| Protocol | Description |
+|----------|-------------|
+| **Kerberos** | Key Distribution Center (KDC)-based authentication protocol that uses tickets in domain environments. |
+| **SRP** | Secure Remote Password is a password-based authentication protocol that uses cryptography to protect against eavesdropping and MITM attacks. |
+| **SSL** | A cryptographic protocol used for secure communication over a computer network (now deprecated in favor of TLS). |
+| **TLS** | Successor to SSL. Provides communication security over the internet using encryption. |
+| **OAuth** | Open standard for authorization. Allows users to grant third-party access to resources without sharing passwords. |
+| **OpenID** | Decentralized authentication protocol that enables single sign-on across multiple websites. |
+| **SAML** | XML-based standard for exchanging authentication and authorization data securely between parties. |
+| **2FA** | Two-Factor Authentication: Uses two different types of verification to authenticate users (e.g., password + phone). |
+| **MFA** | Multi-Factor Authentication: Uses two or more verification factors (e.g., password, token, biometrics). |
+| **FIDO** | Fast IDentity Online: An alliance and set of open standards for strong authentication without passwords. |
+| **PKI** | Public Key Infrastructure: System for secure communication using public/private key encryption and digital signatures. |
+| **SSO** | Single Sign-On: Allows a user to authenticate once and access multiple systems without logging in again. |
+| **PAP** | Password Authentication Protocol: Sends credentials in cleartext; insecure and outdated. |
+| **CHAP** | Challenge-Handshake Authentication Protocol: Uses a three-way handshake to verify identity. |
+| **EAP** | Extensible Authentication Protocol: A framework supporting multiple authentication methods (e.g., smartcards, certificates). |
+| **SSH** | Secure Shell: Secure network protocol for remote command-line access and file transfers. Encrypts all communication. |
+| **HTTPS** | Secure version of HTTP using SSL/TLS for encryption and server authentication. Widely used for secure browsing. |
+| **LEAP** | Lightweight EAP: Cisco-developed wireless protocol using RC4; deprecated due to security vulnerabilities. |
+| **PEAP** | Protected EAP: Secure tunneling protocol using TLS for encrypting EAP traffic; widely used in enterprise networks. |
+
+> 💡 **Tip**: Prefer modern, secure protocols (e.g., TLS, PEAP, EAP-TLS, FIDO) and avoid outdated/insecure ones (e.g., SSL, PAP, LEAP).
