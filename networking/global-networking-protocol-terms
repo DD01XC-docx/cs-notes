@@ -1,0 +1,48 @@
+# Network and Security Protocols Glossary
+
+| Protocol                        | Acronym | Description                                                                                       |
+|--------------------------------|---------|-------------------------------------------------------------------------------------------------|
+| Wired Equivalent Privacy        | WEP     | A type of security protocol commonly used to secure wireless networks.                          |
+| Secure Shell                   | SSH     | A secure network protocol used to log into and execute commands on a remote system.             |
+| File Transfer Protocol         | FTP     | A network protocol used to transfer files between systems.                                      |
+| Simple Mail Transfer Protocol  | SMTP    | A protocol used to send and receive emails.                                                     |
+| Hypertext Transfer Protocol    | HTTP    | A client-server protocol used to send and receive data over the internet.                       |
+| Server Message Block           | SMB     | A protocol used to share files, printers, and other resources on a network.                     |
+| Network File System            | NFS     | A protocol used to access files over a network.                                                 |
+| Simple Network Management Protocol | SNMP  | A protocol used to manage network devices.                                                      |
+| Wi-Fi Protected Access         | WPA     | A wireless security protocol that uses a password to protect wireless networks from unauthorized access. |
+| Temporal Key Integrity Protocol| TKIP    | A wireless security protocol that is less secure and now mostly deprecated.                      |
+| Network Time Protocol          | NTP     | Used to synchronize the time of computers on a network.                                        |
+| Virtual Local Area Network     | VLAN    | A way to segment a network into multiple logical networks.                                      |
+| VLAN Trunking Protocol         | VTP     | A Layer 2 protocol used to establish and maintain VLANs across multiple switches.               |
+| Routing Information Protocol   | RIP     | A distance-vector routing protocol used in LANs and WANs.                                       |
+| Open Shortest Path First       | OSPF    | An interior gateway protocol (IGP) for routing traffic within a single Autonomous System (AS).  |
+| Interior Gateway Routing Protocol | IGRP | A Cisco proprietary interior gateway routing protocol for routing within autonomous systems.   |
+| Enhanced Interior Gateway Routing Protocol | EIGRP | An advanced distance-vector routing protocol used to route IP traffic within a network.        |
+| Pretty Good Privacy            | PGP     | An encryption program used to secure emails, files, and other data.                            |
+| Network News Transfer Protocol | NNTP    | A protocol used for distributing and retrieving messages in newsgroups over the internet.      |
+| Cisco Discovery Protocol       | CDP     | A Cisco proprietary protocol that allows network admins to discover and manage Cisco devices. |
+| Hot Standby Router Protocol    | HSRP    | A protocol used on Cisco routers to provide redundancy in case of router failure.              |
+| Virtual Router Redundancy Protocol | VRRP | A protocol that provides automatic assignment of available IP routers to hosts.                |
+| Spanning Tree Protocol         | STP     | A network protocol to ensure a loop-free topology in Layer 2 Ethernet networks.                 |
+| Terminal Access Controller Access-Control System | TACACS | A protocol for centralized authentication, authorization, and accounting for network access.   |
+| Session Initiation Protocol    | SIP     | A signaling protocol used to establish and terminate real-time voice, video, and multimedia sessions over IP. |
+| Voice Over IP                 | VOIP    | Technology that allows telephone calls to be made over the internet.                           |
+| Extensible Authentication Protocol | EAP | An authentication framework supporting multiple methods (passwords, certificates, OTP, etc.). |
+| Lightweight Extensible Authentication Protocol | LEAP | Cisco proprietary wireless authentication protocol based on EAP.                              |
+| Protected Extensible Authentication Protocol | PEAP | A security protocol providing an encrypted tunnel for wireless and other networks.            |
+| Systems Management Server      | SMS     | A management solution to help organizations manage networks, systems, and mobile devices.      |
+| Microsoft Baseline Security Analyzer | MBSA | A free Microsoft tool to detect potential security vulnerabilities in Windows systems.        |
+| Supervisory Control and Data Acquisition | SCADA | An industrial control system used to monitor and control industrial processes.                |
+| Virtual Private Network        | VPN     | Technology allowing users to create secure, encrypted connections to another network over the internet. |
+| Internet Protocol Security     | IPsec   | A protocol suite to secure IP communications by authenticating and encrypting each IP packet.  |
+| Point-to-Point Tunneling Protocol | PPTP  | A protocol for creating secure, encrypted tunnels for remote access.                           |
+| Network Address Translation    | NAT     | Technology that allows multiple devices on a private network to share a single public IP address. |
+| Carriage Return Line Feed      | CRLF    | Combination of two control characters indicating the end of a line and the start of a new one.  |
+| Asynchronous JavaScript and XML| AJAX    | Web development technique for creating dynamic web pages using JavaScript and XML/JSON.         |
+| Internet Server Application Programming Interface | ISAPI | APIs for creating high-performance web server extensions.                                     |
+| Uniform Resource Identifier    | URI     | Syntax used to identify a resource on the Internet.                                            |
+| Uniform Resource Locator       | URL     | A subset of URI that specifies the location of a web page or resource including protocol and domain. |
+| Internet Key Exchange          | IKE     | Protocol used to set up secure connections between two computers, commonly used in VPNs.       |
+| Generic Routing Encapsulation  | GRE     | Protocol used to encapsulate data within a VPN tunnel.                                         |
+| Remote Shell                  | RSH     | Unix program to execute commands and programs on a remote computer.                            |
