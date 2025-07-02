@@ -1,0 +1,84 @@
+# Active Directory Protocols Overview
+
+Active Directory (AD) in Windows environments relies on several core protocols to handle authentication, communication, and directory services. The main protocols involved are **Kerberos**, **DNS**, **LDAP**, and **MSRPC**.
+
+---
+
+## Kerberos
+
+- Default authentication protocol for domain accounts since Windows 2000.
+- Open standard enabling interoperability across systems.
+- Uses **mutual authentication**: both client and server verify identities.
+- **Ticket-based** system: avoids transmitting passwords over the network.
+- Key components:
+  - **Key Distribution Center (KDC)** on Domain Controllers issues tickets.
+  - **Ticket Granting Ticket (TGT)**: granted upon login.
+  - **Ticket Granting Service (TGS)**: granted to access specific services.
+- Authentication flow:
+  1. Client sends encrypted timestamp to KDC using user’s password.
+  2. KDC decrypts and issues TGT encrypted with `krbtgt` key.
+  3. Client requests TGS using TGT.
+  4. KDC issues TGS encrypted with service’s NTLM hash.
+  5. Client presents TGS to service to gain access.
+- Uses **port 88** (TCP/UDP).
+- Decouples user credentials from resource requests — no password sent over the network.
+
+---
+
+## DNS
+
+- AD relies on DNS to locate Domain Controllers and services.
+- Resolves hostnames to IP addresses, essential for network communication.
+- Uses **Service Records (SRV)** to help clients find network services (e.g., Domain Controllers, file servers).
+- Supports **Dynamic DNS** to update IP addresses automatically.
+- DNS query example commands:
+  - Forward lookup:  
+    ```powershell
+    nslookup INLANEFREIGHT.LOCAL
+    ```
+  - Reverse lookup:  
+    ```powershell
+    nslookup 172.16.6.5
+    ```
+- Uses **port 53** (UDP/TCP).
+
+---
+
+## LDAP
+
+- Lightweight Directory Access Protocol (LDAP) is used for directory lookups and authentication.
+- AD acts as an LDAP directory server.
+- LDAP sessions start by connecting to the Directory System Agent (Domain Controller).
+- Two authentication methods:
+  - **Simple Authentication**: username/password (bind request).
+  - **SASL Authentication**: uses external services like Kerberos for binding.
+- Default LDAP port: **389**; LDAPS (LDAP over SSL): **636**.
+- LDAP messages are cleartext by default; use TLS/SSL to encrypt.
+- LDAP allows querying and managing directory data (users, groups, computers).
+
+---
+
+## MSRPC (Microsoft Remote Procedure Call)
+
+- Microsoft’s implementation of RPC for interprocess communication.
+- Key MSRPC interfaces used in AD:
+  - **lsarpc**: manages local security policies and audits.
+  - **netlogon**: authenticates users and services in the domain.
+  - **samr**: manages the Security Account Manager (users, groups, computers). Used in tools like BloodHound for AD reconnaissance.
+  - **drsuapi**: Directory Replication Service Remote Protocol; used for replicating AD database across Domain Controllers and can be exploited to dump password hashes.
+
+---
+
+# Summary
+
+| Protocol | Purpose                                   | Port(s)    |
+|----------|-------------------------------------------|------------|
+| Kerberos | Authentication with ticket-based system   | 88 TCP/UDP |
+| DNS      | Name resolution and service location       | 53 TCP/UDP |
+| LDAP     | Directory lookup and authentication        | 389 (LDAP), 636 (LDAPS) |
+| MSRPC    | Remote procedure calls for AD management   | Various RPC ports |
+
+---
+
+**Note:** Understanding these protocols is essential for managing, defending, or attacking Active Directory environments.
+
