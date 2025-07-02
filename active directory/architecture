@@ -1,0 +1,76 @@
+# Active Directory Objects
+
+## What is an Object in Active Directory (AD)?
+An object is **any resource** present within an Active Directory environment, such as:  
+- Organizational Units (OUs)  
+- Printers  
+- Users  
+- Domain Controllers, and more.
+
+---
+
+## Common AD Objects and Their Descriptions
+
+### Users
+- Leaf objects (cannot contain other objects).  
+- Considered security principals (have a Security Identifier (SID) and a Global Unique Identifier (GUID)).  
+- Have many attributes such as display name, last login time, password change date, email, description, manager, address, etc.  
+- Important attack targets since even low-privilege user accounts can provide access to many resources and allow domain enumeration.
+
+### Contacts
+- Represent external users (e.g., third-party vendors or customers).  
+- Leaf objects, **not** security principals (do **not** have SID, only GUID).  
+- Contain informational attributes like first name, last name, email, and phone number.
+
+### Printers
+- Point to network printers accessible within AD.  
+- Leaf objects and **not** security principals (have only a GUID).  
+- Attributes include printer name, driver info, port number, etc.
+
+### Computers
+- Any computer (workstation or server) joined to the AD network.  
+- Leaf objects and security principals (have SID and GUID).  
+- Full admin access to a computer can grant similar privileges as a domain user and enables most enumeration tasks.
+
+### Shared Folders
+- Represent shared folders on specific computers.  
+- Not security principals (only GUID).  
+- Attributes include name, location, and access control settings.  
+- Access can range from public to restricted to specific users/groups.
+
+### Groups
+- Container objects that can hold users, computers, and other groups (nested groups).  
+- Security principals (have SID and GUID).  
+- Used to manage user permissions and access to resources.  
+- Nested groups can lead to unintended privilege escalation.  
+- Attributes include name, description, membership, and parent groups.
+
+### Organizational Units (OUs)
+- Containers used to organize and manage AD objects for easier administration.  
+- Allow delegation of administrative tasks without giving full domain admin rights.  
+- Used to apply Group Policy Objects (GPOs) to subsets of users and computers.  
+- Attributes include name, members, and security settings.
+
+### Domain
+- The structural boundary of an AD network.  
+- Contains users, computers, groups, and OUs.  
+- Each domain has its own database and policies (e.g., password policies).  
+- Policies can be customized to restrict or grant access to resources.
+
+### Domain Controllers
+- The "brains" of the AD network.  
+- Handle authentication, verify users, and enforce security policies.  
+- Store information about all objects in the domain.
+
+### Sites
+- Collections of computers connected by high-speed links across one or more subnets.  
+- Optimize replication between domain controllers.
+
+### Built-in Container
+- Holds default groups created automatically when an AD domain is set up.
+
+### Foreign Security Principals (FSPs)
+- Placeholder objects representing security principals from trusted external forests.  
+- Created automatically when an external user, group, or computer is added to a group in the local domain.  
+- Hold the SID of the foreign object and help resolve names via trust relationships.  
+- Located in the container `ForeignSecurityPrincipals` with distinguished names like `cn=ForeignSecurityPrincipals,dc=domain,dc=local`.
