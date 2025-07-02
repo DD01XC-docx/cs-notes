@@ -1,0 +1,97 @@
+# Active Directory Terminology
+
+## Object
+Any resource in Active Directory (AD), such as OUs, users, printers, domain controllers, etc.
+
+## Attributes
+Characteristics of an object, like hostname or DNS name. Each attribute has an LDAP name (e.g., `displayName`, `givenName`).
+
+## Schema
+Blueprint defining object classes and attributes in AD. Objects are instances of classes (e.g., user, computer).
+
+## Domain
+Logical group of AD objects (users, computers, groups, OUs). Domains can be independent or linked by trusts.
+
+## Forest
+Top-level container holding one or more domains. Acts as a security boundary and contains all AD objects.
+
+## Tree
+Collection of domains in a forest starting from a single root domain. Domains have parent-child trust relationships and share a Global Catalog.
+
+## Container
+An object that holds other objects in the AD hierarchy.
+
+## Leaf
+An object that does **not** contain other objects; it is at the end of the hierarchy.
+
+## Global Unique Identifier (GUID)
+A unique 128-bit ID assigned to every AD object, stored in `objectGUID`. It never changes and ensures accurate object identification.
+
+## Security Principals
+Domain objects that can be authenticated and granted access rights (users, computers, processes). Local accounts are managed by SAM.
+
+## Security Identifier (SID)
+Unique identifier for security principals and groups, issued by the domain controller. SIDs never get reused.
+
+## Distinguished Name (DN)
+Full path to an object in AD (e.g., `cn=bjones,ou=IT,dc=inlanefreight,dc=local`).
+
+## Relative Distinguished Name (RDN)
+The unique component of a DN at a given level (e.g., `cn=bjones`).
+
+## sAMAccountName
+User logon name (e.g., `bjones`). Unique and limited to 20 characters.
+
+## userPrincipalName (UPN)
+User login in email format (e.g., `bjones@inlanefreight.local`).
+
+## FSMO Roles
+Flexible Single Master Operation roles assign critical domain controller responsibilities:
+- **Schema Master** (forest-wide)
+- **Domain Naming Master** (forest-wide)
+- **RID Master** (per domain)
+- **PDC Emulator** (per domain)
+- **Infrastructure Master** (per domain)
+
+## Global Catalog (GC)
+A domain controller that holds a full copy of its domain’s objects and partial copies from other domains to enable forest-wide searches and authentication.
+
+## Read-Only Domain Controller (RODC)
+A domain controller with a read-only AD database. It does not cache passwords except for itself and supports reduced replication and admin role separation.
+
+## Replication
+Process of syncing AD changes between domain controllers, managed by the Knowledge Consistency Checker (KCC).
+
+## Service Principal Name (SPN)
+Unique identifier for a service instance, used in Kerberos authentication.
+
+## Group Policy Object (GPO)
+Collections of policy settings applied to users or computers, identified by a unique GUID.
+
+## Access Control List (ACL)
+List of Access Control Entries (ACEs) that define permissions on an object.
+
+## Access Control Entry (ACE)
+An entry in an ACL that grants or denies access rights to a trustee (user, group, or session).
+
+## Discretionary Access Control List (DACL)
+Defines allowed or denied access rights to an object. Absence of a DACL grants full access to everyone.
+
+## System Access Control List (SACL)
+Logs access attempts to secured objects.
+
+## Fully Qualified Domain Name (FQDN)
+Complete DNS name of a host (e.g., `DC01.inlanefreight.local`).
+
+## Tombstone
+Deleted AD objects kept for a period (Tombstone Lifetime) before permanent removal. Tombstoned objects lose most attributes.
+
+## AD Recycle Bin
+Feature to recover deleted objects with full attributes preserved for a configurable retention period.
+
+## SYSVOL
+Shared directory on domain controllers storing scripts and Group Policy data replicated across the domain.
+
+---
+
+*This note summarizes key Active Directory concepts for quick reference.*
