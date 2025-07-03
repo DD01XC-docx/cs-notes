@@ -1,0 +1,94 @@
+# 🧠 Active Directory Groups – Quick Reference
+
+---
+
+## 🔹 Groups vs. Organizational Units (OUs)
+
+| Feature         | **Groups**                              | **Organizational Units (OUs)**                   |
+|----------------|-------------------------------------------|--------------------------------------------------|
+| **Main Purpose** | Assign **permissions** to resources      | Organize for **Group Policy** and **delegation** |
+| **Can Contain** | Users, computers, **other groups**       | Users, computers, groups, **other OUs**          |
+| **Used For**    | Resource access control (e.g., shares)   | Applying GPOs, delegating administrative control |
+
+---
+
+## 🔹 Group Types
+
+- **Security Group**
+  - Used to **assign permissions** (e.g., file share, printer).
+  - Can be added to ACLs.
+  - Can send emails **and** control access.
+
+- **Distribution Group**
+  - **Email only** (used by Exchange, Outlook).
+  - Cannot be used to control access to resources.
+
+---
+
+## 🔹 Group Scopes
+
+| Scope         | Can Contain Members From     | Can Be Used In              | Use Case                                                    |
+|---------------|------------------------------|-----------------------------|-------------------------------------------------------------|
+| **Domain Local** | Any domain                   | **Only in the same domain** | Best for assigning permissions **within a domain**          |
+| **Global**       | Same domain only             | Any domain in the forest    | Best for **grouping users** by department or role           |
+| **Universal**    | Any domain                   | Any domain in the forest    | Best for **assigning permissions across domains**           |
+
+---
+
+## 🔁 Nested Group Membership
+
+- Groups can be members of **other groups**.
+- **Users may inherit permissions** from **indirect group membership**.
+- Example:
+  - `User → Help Desk → Help Desk Level 1 → Tier 1 Admins`
+- 🧪 Use **BloodHound** to visualize and audit these relationships.
+
+---
+
+## 🔐 Important Attributes (LDAP)
+
+| Attribute    | Description                                         |
+|--------------|-----------------------------------------------------|
+| `cn`         | Common name (group's name in AD)                    |
+| `member`     | Users, groups, or contacts inside the group         |
+| `memberOf`   | Lists **parent groups** (used for nesting tracking) |
+| `groupType`  | Integer: indicates **type + scope**                 |
+| `objectSid`  | Unique SID for the group                            |
+
+---
+
+## 🔄 Group Scope Conversion Rules
+
+| Convert From → To         | Conditions                                                                 |
+|---------------------------|----------------------------------------------------------------------------|
+| Global → Universal         | Only if **not nested** in another Global group                            |
+| Domain Local → Universal   | Only if it **does not contain other Domain Local groups**                 |
+| Universal → Domain Local   | ✅ Can be done without restriction                                         |
+| Universal → Global         | Only if it **does not contain other Universal groups**                    |
+
+---
+
+## 🏗️ Built-In vs. Custom Groups
+
+- **Built-in Groups**
+  - Created when domain is initialized
+  - Most are **Domain Local** scope
+  - Cannot nest other groups inside
+  - Example: `Administrators`, `Users`, `Guests`
+
+- **Custom Groups**
+  - Created by admins for organizational purposes
+  - Can be Security or Distribution, any scope
+  - Common when Exchange or new services are added
+
+---
+
+## 🛠 Tools for Analysis
+
+- 🔍 **BloodHound**: Graph-based visualization of group/user relationships.
+- 🧠 Useful for both **pen testers** and **sysadmins**.
+- Helps find privilege escalation paths and misconfigurations.
+
+---
+
+> 📚 **Pro Tip**: Always review group memberships during domain audits and pentests — nested memberships and overly permissive groups are common attack vectors.
