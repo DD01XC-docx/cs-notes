@@ -1,0 +1,117 @@
+# 🧑‍💻 User and Machine Accounts in Active Directory
+
+## User Accounts
+
+User accounts are created both locally and in Active Directory (AD) to give a person or service access to computers and network resources based on their rights.
+
+### Key Points:
+- When a user logs in:
+  - Password is verified.
+  - An **access token** is created.
+  - Token includes security identity and group membership.
+- Tokens are used every time the user interacts with a process.
+
+### Use Cases:
+- Allow employees/contractors to log in and access resources.
+- Run services/programs under a specific security context.
+- Manage access to:
+  - Network shares
+  - Files
+  - Applications
+
+### Groups:
+- Users can be assigned to groups.
+- Groups simplify administration (privileges assigned to groups instead of individual users).
+
+### AD User Provisioning:
+- Every employee typically has at least **one AD account**.
+- Admins/Help Desk may have **multiple accounts**.
+- **Service accounts** are used to run applications/services.
+- Companies often keep **disabled accounts** for auditing purposes (e.g., in a `FORMER EMPLOYEES` OU).
+
+### Rights:
+- Users can have rights from read-only to full enterprise control.
+- Misconfigurations can occur easily and be exploited.
+- User accounts are a major attack surface.
+
+---
+
+## Local Accounts
+
+Local accounts exist **only on the local machine**. Rights are granted **only on that host**.
+
+### Default Local Accounts:
+
+- **Administrator**
+  - SID: `S-1-5-domain-500`
+  - Cannot be deleted/locked, but can be renamed or disabled.
+  - Default account created on Windows install.
+
+- **Guest**
+  - Disabled by default.
+  - Limited access, blank password by default.
+  - Security risk — should remain disabled.
+
+- **SYSTEM (`NT AUTHORITY\SYSTEM`)**
+  - Used by the OS for internal functions.
+  - Has full control over the system.
+  - Highest permission level on a Windows host.
+  - Cannot be seen in User Manager or added to groups.
+
+- **Network Service**
+  - Used to run Windows services.
+  - Presents credentials to remote services.
+
+- **Local Service**
+  - Minimal privileges on the host.
+  - Presents **anonymous** credentials to the network.
+
+📌 See [Microsoft's official documentation](https://learn.microsoft.com/) for more details on default accounts.
+
+---
+
+## Domain Users
+
+Domain users are granted access by the **domain**, not the local machine.
+
+### Key Differences:
+- Can log in from **any domain-joined host**.
+- Have access to:
+  - File servers
+  - Printers
+  - Intranet resources
+
+### Special Account: `KRBTGT`
+- Built-in service account for **Kerberos Key Distribution**.
+- Common attack target (e.g., **Golden Ticket attack**).
+- Gaining access = domain-wide compromise.
+
+---
+
+## Naming Attributes
+
+| Attribute         | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `UserPrincipalName (UPN)` | Main logon name (usually email format).                   |
+| `ObjectGUID`      | Unique, immutable user identifier.                                          |
+| `SAMAccountName`  | Legacy logon name (for older systems).                                      |
+| `objectSID`       | Security Identifier; defines user and group memberships.                    |
+| `sIDHistory`      | Stores previous SIDs (used in domain migrations).                           |
+
+---
+
+## Example: AD User Object Output
+
+```powershell
+PS C:\htb> Get-ADUser -Identity htb-student
+
+DistinguishedName : CN=htb student,CN=Users,DC=INLANEFREIGHT,DC=LOCAL  
+Enabled           : True  
+GivenName         : htb  
+Name              : htb student  
+ObjectClass       : user  
+ObjectGUID        : aa799587-c641-4c23-a2f7-75850b4dd7e3  
+SamAccountName    : htb-student  
+SID               : S-1-5-21-3842939050-3880317879-2865463114-1111  
+Surname           : student  
+UserPrincipalName : htb-student@INLANEFREIGHT.LOCAL  
