@@ -1,0 +1,41 @@
+# 🛡️ Active Directory: Rights, Privileges & Built-in Groups
+
+## 🔑 Rights vs. Privileges in AD
+
+| Term        | Description |
+|-------------|-------------|
+| **Rights**  | Define what a user *can access*. For example, permissions on a file, folder, or object. |
+| **Privileges** | Define what a user *can do*. For example, shut down a system, load drivers, or reset passwords. |
+
+> 💡 **Note:** In Windows, *User Rights Assignment* (via Group Policy) is technically a list of **privileges**, despite the name.
+
+---
+
+## 🏛️ Built-in Active Directory Groups
+
+Below are some critical built-in AD groups that can be abused for privilege escalation if not properly managed.
+
+| Group Name           | Description |
+|----------------------|-------------|
+| **Account Operators** | Can manage most account types (except admin accounts), and log in locally to Domain Controllers (DCs). |
+| **Administrators** | Full control over the domain or local system. |
+| **Backup Operators** | Can back up/restore files (even with restrictive ACLs). Can extract sensitive data like `NTDS.dit`. Considered **Domain Admins** on DCs. |
+| **DnsAdmins** | Manage DNS settings. If DNS is hosted on a DC, can be abused to escalate privileges. |
+| **Domain Admins** | Full access to administer the domain. Added automatically to `Administrators` on all domain-joined machines. |
+| **Enterprise Admins** | Forest-wide administrators. Can add child domains or trusts. Only exists in root domain. |
+| **Schema Admins** | Can modify the **AD Schema**. Highly sensitive — only the root admin should be in this group. |
+| **Server Operators** | On DCs: can manage services, SMB shares, and backup files. Dangerous if abused. |
+| **Print Operators** | Can load drivers on DCs — potential vector for privilege escalation. |
+| **Protected Users** | Enhanced protection against credential theft (e.g., no NTLM, no cached credentials). |
+| **Group Policy Creator Owners** | Can create or modify Group Policy Objects (GPOs). |
+| **Remote Desktop Users** | Can log in via RDP. Useful for lateral movement. |
+| **Hyper-V Administrators** | Full access to Hyper-V. Dangerous if DCs are virtualized. |
+| **Pre–Windows 2000 Compatible Access** | Legacy group that can expose sensitive info to unauthenticated users. Remove if not needed. |
+
+---
+
+## 🧰 PowerShell Examples
+
+### 🔍 View Server Operators Group
+```powershell
+Get-ADGroup -Identity "Server Operators" -Properties *
