@@ -1,0 +1,156 @@
+# 🛡️ Active Directory Security Notes
+
+## 🔺 CIA Triad in AD
+- **Confidentiality**: Access control.
+- **Integrity**: Ensures data authenticity.
+- **Availability**: Ensures continuous access to resources.
+
+AD leans heavily towards **Availability** → secure by design is not default.
+
+---
+
+## 🔧 General Hardening Measures
+
+### 1. **Microsoft LAPS (Local Administrator Password Solution)**
+- Randomizes and rotates local admin passwords.
+- Prevents lateral movement.
+- Set rotation interval (e.g. every 12 or 24 hours).
+
+---
+
+### 2. **Audit Policy Settings**
+- Monitor for:
+  - Unauthorized account creation.
+  - Password changes.
+  - Unusual logons.
+  - Attack indicators (e.g., password spraying).
+- Helps detect AD enumeration and modern Kerberos attacks.
+
+---
+
+### 3. **Group Policy Security Settings**
+**Group Policy Objects (GPOs)** can enforce:
+- **Account Policies**: Password, lockout, Kerberos settings.
+- **Local Policies**: Audit policy, user rights, security options.
+- **Software Restriction Policies**: Control what apps can be run.
+- **Application Control Policies** (AppLocker): Block CMD, PowerShell, etc.
+- **Advanced Audit Policy Configuration**: File access, logons, privilege use.
+
+---
+
+### 4. **Update Management**
+- **WSUS**: Free, server role for patching.
+- **SCCM**: Paid, feature-rich patching platform.
+- Ensures timely and broad security patch deployment.
+
+---
+
+### 5. **Group Managed Service Accounts (gMSA)**
+- Used for non-interactive services/tasks.
+- Passwords are 120 characters, auto-rotated.
+- No human password knowledge required.
+
+---
+
+## 👥 User & Group Security
+
+### 6. **Security Groups**
+- Assign rights/resources by group, not individual.
+- Default groups: `Domain Admins`, `Account Operators`, `Backup Operators`, etc.
+- Simplifies permission management.
+
+### 7. **Account Separation**
+- Admins need:
+  - Daily account: `user.name`
+  - Admin account: `user.name_adm`
+- Mitigates compromise risk via phishing or malware.
+
+---
+
+## 🔑 Authentication Best Practices
+
+### 8. **Password Complexity + MFA**
+- Use **passphrases** or **random long passwords** (≥12 chars).
+- Avoid common passwords (e.g., Welcome1).
+- Disallow months, seasons, company name, etc.
+- Enforce **2FA** for RDP.
+
+---
+
+### 9. **Limit Domain Admin Usage**
+- Use **only** on Domain Controllers.
+- Avoid using on workstations or jump hosts.
+- Prevents password leaks in memory dumps.
+
+---
+
+## 🧹 Maintenance & Auditing
+
+### 10. **Stale Object Cleanup**
+- Disable/remove:
+  - Old user accounts.
+  - Obsolete service accounts.
+
+### 11. **Access Reviews**
+- Audit:
+  - Local Admin access.
+  - Domain Admin and Enterprise Admin count.
+  - File shares and group memberships.
+
+---
+
+## 🔍 Audit & Monitoring
+
+### 12. **Audit Policies & Logging**
+- Detect:
+  - Login anomalies.
+  - AD enumeration.
+  - Kerberoasting.
+- Follow Microsoft Audit Policy Recommendations.
+
+---
+
+## ⚙️ Group Control & Host Roles
+
+### 13. **Restricted Groups via GPO**
+- Enforce exact group membership:
+  - Local Administrators.
+  - Domain Admins.
+  - Enterprise Admins.
+
+### 14. **Limit Server Roles**
+- Avoid:
+  - IIS on Domain Controllers.
+  - Exchange + web apps together.
+  - Web + DB on same host.
+
+---
+
+### 15. **Limit Local Admin and RDP Rights**
+- Don’t add `Domain Users` to local `Administrators`.
+- Control RDP access tightly to minimize attack surface.
+
+---
+
+## ✅ Summary
+
+| Topic                          | Summary                                                                 |
+|-------------------------------|-------------------------------------------------------------------------|
+| LAPS                          | Auto password rotation                                                  |
+| Audit Logging                 | Detect attacks like password spraying                                  |
+| Group Policy (GPO)            | Central security management                                             |
+| Update Management             | Patch all AD-connected machines quickly                                |
+| gMSA                          | Secure service account credentials                                     |
+| Security Groups               | Granular access via roles                                              |
+| Admin Account Separation      | Prevent privilege misuse via phishing                                  |
+| Password + MFA                | Complex + long passwords and 2FA essential                             |
+| Domain Admin Limits           | No login to workstations, jump hosts                                   |
+| Stale Accounts                | Periodic cleanup needed                                                |
+| Audit Reviews                 | Least privilege and accurate group membership                         |
+| Restricted Groups             | Controlled via GPO                                                     |
+| Role Separation               | Separate roles for DCs, Exchange, DBs                                  |
+| RDP/Admin Rights              | Minimize exposure to lateral movement                                  |
+
+---
+
+📚 _Always apply a **defense-in-depth** strategy!_
