@@ -1,0 +1,49 @@
+# Group Policy and Blocking Executables
+
+## What is Group Policy?
+- Windows feature to manage user and computer settings in a domain.
+- Managed via Group Policy Objects (GPOs).
+- GPOs can be linked to Sites, Domains, or Organizational Units (OUs).
+- Provides centralized management of security settings, software, policies, etc.
+
+## Group Policy Objects (GPOs)
+- Collections of policy settings applied to users or computers.
+- Can control:
+  - Password policies
+  - USB/removable media restrictions
+  - Screensaver and lock settings
+  - Application restrictions
+  - Audit and logging policies
+  - Software deployment
+  - Logon banners and scripts
+
+## GPO Order of Precedence
+- Local Group Policy
+- Site Policy
+- Domain-wide Policy
+- OU Policies (parent OU → child OU)
+- Enforced policies override lower-level policies.
+- Block inheritance can prevent policies from higher levels applying.
+
+## Blocking Users from Running Executables
+- Use **Software Restriction Policies (SRP)** or **AppLocker** via Group Policy.
+- These policies can:
+  - Block all executables (*.exe) for specific users or groups.
+  - Restrict applications by path, hash, or publisher.
+- Applied typically in:
+  - Computer Configuration → Policies → Windows Settings → Security Settings → Software Restriction Policies
+  - Or under Application Control Policies → AppLocker
+
+## Security Considerations
+- Misconfigured GPOs can be abused by attackers for:
+  - Privilege escalation
+  - Lateral movement
+  - Persistence
+- Proper delegation and auditing of GPO modification rights is critical.
+
+## Summary
+- Group Policy is a powerful tool to enforce security settings in a Windows domain.
+- Blocking users from running executables can be achieved with Software Restriction Policies or AppLocker GPOs.
+- GPOs apply based on hierarchy and precedence.
+- Secure management of GPOs is vital to avoid abuse.
+
